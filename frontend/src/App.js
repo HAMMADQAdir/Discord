@@ -1,14 +1,19 @@
-import logo from './logo.svg';
+
 import './App.css';
-import Card1 from './cards/card1';
-import Footer from './Footer';
+import Home from './pages/Home';
+import Footer from './components/Footer'
+import Headers from './components/Header'
+
 function App() {
   return (
-   <>
- <Card1/>
- <Footer/>
- 
-   </>
+    
+      <div className="bg-[url('./assets/background_home.avif')] bg-cover bg-opacity-25 backdrop-blur-sm">
+      <Headers />
+      <Home />
+      <Footer />
+      </div>
+
+    
   );
 }
 
