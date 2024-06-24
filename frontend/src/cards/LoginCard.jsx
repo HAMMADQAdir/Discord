@@ -34,7 +34,7 @@ export default function LoginCard() {
               type="email"
               autoComplete="email"
               required
-              className="my-4 w-full  bg-slate-900 rounded-md text-2xl p-3 focus:outline-none"
+              className="my-4 w-full  bg-slate-900 rounded-md text-2xl p-4 focus:outline-none"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -50,7 +50,7 @@ export default function LoginCard() {
               type="password"
               required
               name="passowrd"
-              className="my-4 w-full  bg-slate-900 rounded-md text-2xl p-3 focus:outline-none"
+              className="my-4 w-full  bg-slate-900 rounded-md text-2xl p-4 focus:outline-none"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}

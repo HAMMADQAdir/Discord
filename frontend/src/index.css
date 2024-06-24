@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    /* background: #2d3748; Tailwind 'bg-gray-800' color */
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #2d3748; /* Tailwind 'bg-gray-600' color */
+    border-radius: 4px;
+    border:  solid #2d3748;
+  }
+  
+  /* Custom scrollbar styles for Firefox */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: none;
+  }
