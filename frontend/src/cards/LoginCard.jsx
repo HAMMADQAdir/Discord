@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import QR from "../assets/QR.png";
+import { doSignInWithEmailAndPassword,doSignInWithGoogle } from "../firebase/auth";
 
 export default function LoginCard() {
   const [email, setEmail] = useState("");
   const [passowrd, setPassword] = useState("");
-  const handleLoginForm = (e) => {
-    try {
-      e.preventDefault();
-      console.log(email);
-      console.log(passowrd);
-    } catch (error) {
-      console.log(error);
-    }
+
+  const handleLoginForm =async (e) => {
+    await doSignInWithEmailAndPassword(email,passowrd)
+   
   };
+
+  const onGoogleSignIn =(e)=>{
+    e.preventDefault()
+    doSignInWithGoogle().catch(err=>{
+      console.log(err)
+    })
+  }
+
   return (
     <div className="flex bg-slate-800 w-[80%]">
       <div className="flex flex-wrap justify-center flex-col m-4 text-white text-center w-1/2">

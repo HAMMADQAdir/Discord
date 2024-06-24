@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import '../index.css'
+import {NavLink,useNavigate} from "react-router-dom"
+import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 
 export default function SignUpCard() {
+  const navigate = useNavigate()
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -36,12 +40,11 @@ export default function SignUpCard() {
     return years;
   };
 
-  const handleSignUpForm = (e) => {
-    try {
-        console.log('yo')
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSignUpForm =async (e) => {
+    
+    e.preventDefault()
+    await doCreateUserWithEmailAndPassword(email,password)
+
   };
   return (
     <div className="w-screen h-screen flex flex-wrap justify-center content-center">
