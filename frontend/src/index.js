@@ -10,6 +10,9 @@ import App from './App'
 import Home from './pages/Home';
 import Login from './pages/Login'
 import SignUp from './pages/SignUp';
+import FriendList from './components/FriendList';
+import Shop from './components/Shop';
+import Chats from './components/Chats';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +32,20 @@ const router = createBrowserRouter([
   {
     path:"/signup",
     element:<SignUp/>
+  },
+  {
+    path:"/friendList",
+    element:<FriendList/>
+  },
+  {
+    path:"/shop",
+    element:<Shop/>
+  },
+  {
+    path:"/chats",
+    element:<Chats/>
   }
+  
   
 ]);
 

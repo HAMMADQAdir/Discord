@@ -1,33 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge, and Firefox */
-  .hide-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
 
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-track {
-    /* background: #2d3748; Tailwind 'bg-gray-800' color */
-    border-radius: 10px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #2d3748; /* Tailwind 'bg-gray-600' color */
-    border-radius: 4px;
-    border:  solid #2d3748;
-  }
-  
-  /* Custom scrollbar styles for Firefox */
-  .custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: none;
-  }
+/* Hide scrollbar for IE, Edge, and Firefox */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Custom scrollbar styles for WebKit browsers */
+.custom-scrollbar {
+  /* Ensure the container allows scrolling */
+  overflow: auto;
+}
+
+/* Apply border radius to the scrollbar track and thumb */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #2d3748; /* Tailwind 'bg-gray-800' color */
+  border-radius: 12px; /* Border radius for scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2d3748; /* Tailwind 'bg-gray-600' color */
+  border-radius: 12px; /* Border radius for scrollbar thumb */
+  border: 2px solid #2d3748; /* Optional: add a border around the thumb */
+}
+
+/* Custom scrollbar styles for Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #111827 #2d3748; /* Thumb and track colors */
+}

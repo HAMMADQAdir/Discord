@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import UserRoutes from "./Routes/Users.routes.js";
 import cors from 'cors'
+import ChatsRoutes from "./Routes/Chats.routes.js"
 
 
 const app = express()
@@ -20,4 +21,5 @@ mongoose.connect("mongodb+srv://aabidhussainpas:7hEzoKNJh96atiwr@cluster0.icak94
         console.log(e)
     })
 
-app.use("/user",UserRoutes)
+app.use("/api/user",UserRoutes)
+app.use("/api/chats",ChatsRoutes)
