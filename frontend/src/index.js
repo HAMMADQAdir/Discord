@@ -13,6 +13,8 @@ import SignUp from './pages/SignUp';
 import FriendList from './components/FriendList';
 import Shop from './components/Shop';
 import Chats from './components/Chats';
+import ProtectedRoute from './ProtectedRoutes';
+import { AuthProvider } from './contexts/authContext';
 
 const router = createBrowserRouter([
   {
@@ -21,8 +23,12 @@ const router = createBrowserRouter([
    
   },
   {
-    path:"/home",
-    element:<Home/>,
+    path:"/:username/home",
+    element:(
+      <ProtectedRoute>
+        <Home/>
+      </ProtectedRoute>
+    )
    
   },
   {
@@ -34,16 +40,28 @@ const router = createBrowserRouter([
     element:<SignUp/>
   },
   {
-    path:"/friendList",
-    element:<FriendList/>
+    path:"/:username/friendList",
+    element:(
+      <ProtectedRoute>
+        <FriendList/>
+      </ProtectedRoute>
+    )
   },
   {
-    path:"/shop",
-    element:<Shop/>
+    path:"/:username/shop",
+    element:(
+      <ProtectedRoute>
+        <Shop/>
+      </ProtectedRoute>
+    )
   },
   {
-    path:"/chats",
-    element:<Chats/>
+    path:"/:username/chats",
+    element:(
+      <ProtectedRoute>
+        <Chats/>
+      </ProtectedRoute>
+    )
   }
   
   
@@ -52,7 +70,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <AuthProvider>
+
      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
 

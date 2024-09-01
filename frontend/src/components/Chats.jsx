@@ -6,11 +6,11 @@ export default function Chats() {
   const [messages, setMessages] = useState([]);
 
   // getmessages
-  useEffect( () => {
+  useEffect(async () => {
     try {
       const URL =
         "http://127.0.0.1:5000/api/chats/getChats/66cc9c1bda227ccf77f334e5";
-      axios
+      await axios
         .get(URL)
         .then((response) => {
           setMessages(response.data.messages);

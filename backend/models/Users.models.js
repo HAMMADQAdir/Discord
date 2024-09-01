@@ -11,7 +11,7 @@ const UserSchema = mongoose.Schema(
             type:String,
             required:true
         },
-        fullName:{
+        displayName:{
             type:String,
             required:true
 
@@ -20,18 +20,10 @@ const UserSchema = mongoose.Schema(
             type:String,
             required:true
         },
-        semester:{
-            type:Number,
+        DOB:{
+            type:String,
             required:true
         },
-        year:{
-            type:Number,
-            required:true
-        },
-        phoneNumber:{
-            type:Number,
-            required:true     
-        }
 
 
     },

@@ -11,8 +11,7 @@ export const doCreateUserWithEmailAndPassword = async (email,password)=>{
 }
 
 export const doSignInWithEmailAndPassword =async (email,password)=>{
-    try {
-        
+    try {  
         return signInWithEmailAndPassword(auth,email,password)
     } catch (error) {
         console.log(error)

@@ -15,8 +15,8 @@ export const createUser =  async(req,res) =>{
 // get User 
 export const getUser = async (req,res)=>{
     try {
-        const {id} = req.params
-        const user = await User.findById(id)
+        const {email} = req.params
+        const user = await User.findOne({email:email})
 
         if(!user){
             res.status(400).json({message:"User not found"})

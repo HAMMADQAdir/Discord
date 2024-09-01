@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
+import { useNavigate } from "react-router";
 
 export default function Header() {
   const [isSidebarOpen,setIsSidebarOpen] = useState(false)
+  const navigate = useNavigate()
 
   const toggleSidebar = () =>{
     setIsSidebarOpen(!isSidebarOpen)
@@ -26,7 +28,7 @@ export default function Header() {
         </ul>
       </div>
       <div className="flex justify-end content-center">
-        <button className="p-4 bg-white hover:text-sky-600  text-lg lg:text-3xl font-bold rounded-3xl p-4 m-2">Login</button>
+        <button className="p-4 bg-white hover:text-sky-600  text-lg lg:text-3xl font-bold rounded-3xl p-4 m-2" onClick={()=>navigate('/login')}>Login</button>
         <img  className="h-[70%] lg:h-[100%] mx-2 2xl:hidden cursor-pointer my-auto"  onClick={()=>toggleSidebar()} loading="lazy" src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/625846fc39fbe53385840143_1%20(3).svg" alt="" />
       </div>
       <Sidebar  isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />

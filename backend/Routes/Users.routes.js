@@ -7,7 +7,7 @@ const router = express.Router()
 router.post('/createUser',createUser)
 
 // get user
-router.get('/getUser/:id',getUser)
+router.get('/getUser/:email',getUser)
 
 // get all user
 router.get('/getAllUser',getAllUser)

@@ -1,14 +1,40 @@
 import React, { useState } from "react";
 import QR from "../assets/QR.png";
+import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword,doSignInWithGoogle } from "../firebase/auth";
+import axios from "axios";
 
 export default function LoginCard() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [passowrd, setPassword] = useState("");
 
   const handleLoginForm =async (e) => {
-    await doSignInWithEmailAndPassword(email,passowrd)
+    try {     
+      e.preventDefault();  // Prevents the default form submission behavior
+      const userCredential = await doSignInWithEmailAndPassword(email,passowrd)
+
+      //get username
+      const URL = `http://127.0.0.1:5000/api/user/getUser/${email}`
+      
+      await axios
+        .get(URL)
+        .then((response) => {
+          console.log(response.data)
+          navigate(`/${response.data.username}/home`);
+           // Handle the response data
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error); // Handle errors
+        });
+
+     
+    } catch (error) {
+      console.log(error)
+      return
+    }
    
+    
   };
 
   const onGoogleSignIn =(e)=>{

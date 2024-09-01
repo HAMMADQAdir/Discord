@@ -1,44 +1,48 @@
+// AuthContext.js
+import React, { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { useContext, useEffect, useState } from "react";
 import { auth } from "../../firebase/firebase";
 
-const AuthContext = React.createContext();
+const AuthContext = React.createContext({
+  currentUser: null,
+  userLoggedIn: false,
+  loading: true,
+});
 
-export function useAuth(){
-    return useContext(AuthContext)
+export function useAuth() {
+  return useContext(AuthContext);
 }
 
-export function AuhProvider({children}){
-    const [currentUser,setCurrentUser] = useState(null)
-    const [userLoggenIn,setUserLoggenIn] = useState(false)
-    const [loading,setLoading] = useState(true)
+export function AuthProvider({ children }) {  // Fixed the typo here
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userLoggedIn, setUserLoggedIn] = useState(false); // Fixed the typo here
+  const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-        const unsubscribe = onAuthStateChanged(auth,intializeUser);
-        return unsubscribe
-    },[])
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, initializeUser);
+    return unsubscribe;
+  }, []);
 
-    async function intializeUser(user){
-        if(user){
-            setCurrentUser({...user})
-            setUserLoggenIn(true)
-        }
-        else{
-            setCurrentUser(null)
-            setUserLoggenIn(false)
-        }
-        setLoading(false)
+  async function initializeUser(user) {
+    if (user) {
+      setCurrentUser({ ...user });
+      setUserLoggedIn(true);
+    } else {
+      setCurrentUser(null);
+      setUserLoggedIn(false);
     }
+    setLoading(false);
+  }
 
-    const value = {
-        currentUser,
-        userLoggenIn,
-        loading
-    }
+  const value = {
+    currentUser,
+    userLoggedIn,
+    loading,
+  };
 
-    return(
-        <AuthContext.Provider value={value}>
-            {!loading && children}
-        </AuthContext.Provider>
-    )
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }
