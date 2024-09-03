@@ -3,15 +3,21 @@ import './App.css';
 import Home from './pages/Home';
 import Footer from './components/Footer'
 import Headers from './components/Header'
-
+import SideNav from './components/LandingPage/sideNav';
+import AddingServer from './components/LandingPage/addingServer';
+import MyServer from './components/MyServer';
 function App() {
   return (
-    
-      <div className="bg-[url('./assets/background_home.avif')] bg-cover bg-opacity-25 backdrop-blur-sm">
-      <Headers />
-      <Home />
-      <Footer />
-      </div>
+    <>
+       <div className="bg-[url('./assets/background_home.avif')] bg-cover bg-opacity-25 backdrop-blur-sm w-full h-full">
+       {/* <Headers /> */}
+       <MyServer/>
+      
+        {/* <SideNav/>  */}
+   {/* <AddingServer/> */}
+       {/* <Footer /> */}
+       </div>
+      </>
 
     
   );

@@ -10,6 +10,7 @@ import App from './App'
 import Home from './pages/Home';
 import Login from './pages/Login'
 import SignUp from './pages/SignUp';
+import SideNav from './components/LandingPage/sideNav';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
   {
     path:"/home",
     element:<Home/>,
+   
+  },
+  {
+    path:"/landing",
+    element:<SideNav/>,
    
   },
   {
