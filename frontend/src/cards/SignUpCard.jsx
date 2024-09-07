@@ -4,10 +4,9 @@ import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 import axios from "axios";
 
-
 export default function SignUpCard() {
   const navigate = useNavigate();
-  const URLFOESIGNUP = 'http://127.0.0.1:5000/api/user/createUser'
+  const URLFOESIGNUP = "http://127.0.0.1:5000/api/user/createUser";
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -16,6 +15,7 @@ export default function SignUpCard() {
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [year, setYear] = useState("");
+  const [error, setError] = useState("a");
 
   const renderDays = () => {
     const days = [];
@@ -44,26 +44,26 @@ export default function SignUpCard() {
 
   const handleSignUpForm = async (e) => {
     try {
-      
       e.preventDefault();
       const data = {
-        "email":email,
-        "username":username,
-        "displayName":displayName,
-        "gender":"Male",
-        "DOB":`${day}/${month}/${year}`
-      }
+        email: email,
+        username: username,
+        displayName: displayName,
+        gender: "Male",
+        DOB: `${day}/${month}/${year}`,
+      };
       // register use in firebase
       await doCreateUserWithEmailAndPassword(email, password);
       // Add user in mongodb data base
-      await axios.post(URLFOESIGNUP,data);
-      
+      await axios.post(URLFOESIGNUP, data);
     } catch (error) {
-      console.log(error)
-      return
+      setError(error.toString());
+      console.log(typeof(error))
+      console.log(error);
+      return;
     }
-    // Navigate to home 
-    return <Navigate to="/login" />
+    // Navigate to home
+    return <Navigate to="/login" />;
   };
 
   return (
@@ -214,10 +214,13 @@ export default function SignUpCard() {
             </button>
           </div>
           <div>
-            <p className=" text-blue-400  lg:text-2xl font-semibold font-sans">
-              Already have an account?
-            </p>
+            <a href="" onClick={() => navigate("/login")}>
+              <p className=" text-blue-400  lg:text-2xl font-semibold font-sans">
+                Already have an account?
+              </p>
+            </a>
           </div>
+          <div className="text-4xl text-red text-center my-2">{Error}</div>
         </form>
       </div>
     </div>

@@ -65,7 +65,7 @@ export default function LoginCard() {
               type="email"
               autoComplete="email"
               required
-              className="my-2 lg:my-4 w-full  bg-slate-900 rounded-md text-sm lg:text-2xl p-2 lg:p-4 focus:outline-none"
+              className="my-2 lg:my-4 w-full  bg-slate-900 rounded-md text-sm text-xl lg:text-4xl p-2 lg:p-4 focus:outline-none"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -81,17 +81,17 @@ export default function LoginCard() {
               type="password"
               required
               name="passowrd"
-              className="my-2 lg:my-4 w-full  bg-slate-900 rounded-md text-sm lg:text-2xl p-2 lg:p-4 focus:outline-none"
+              className="my-2 lg:my-4 w-full  bg-slate-900 rounded-md text-sm text-xl lg:text-4xl p-2 lg:p-4 focus:outline-none"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
-            <p className="text-blue-400 lg:text-2xl ">forgot your passowrd?</p>
+            <p className="text-blue-400 text-xl lg:text-4xl ">forgot your passowrd?</p>
           </div>
           <div>
             <button
               type="submit"
-              className="w-full my-2 lg:my-8 bg-blue-500 text-lg lg:text-3xl py-3 font-bold rounded-lg hover:bg-blue-600"
+              className="w-full my-2 lg:my-8 bg-blue-500 text-xl tracking-wider lg:text-4xl py-3 font-bold rounded-lg hover:bg-blue-600"
             >
               Log In
             </button>

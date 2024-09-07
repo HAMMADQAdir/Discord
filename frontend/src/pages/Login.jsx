@@ -3,7 +3,7 @@ import LoginCard from '../cards/LoginCard'
 
 export default function Login() {
   return (
-    <div className="flex flex-wrap justify-center content-center h-screen bg-[url('')] bg-cover">
+    <div className="flex flex-wrap justify-center content-center h-screen bg-[url('')] bg-cover  bg-zinc-800">
       <LoginCard/>
     </div>
   )
