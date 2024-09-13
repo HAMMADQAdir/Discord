@@ -1,4 +1,4 @@
-import User from "../models/Users.models.js";
+import User from "../models/Users.model.js";
 
 // Create New user
 export const createUser =  async(req,res) =>{
@@ -7,7 +7,7 @@ export const createUser =  async(req,res) =>{
         res.status(200).json(user)
         console.log(user)
     } catch (error) {
-        res.status(400).json({message:e.message})
+        res.status(400).json({message:error.message})
     }
 
 }

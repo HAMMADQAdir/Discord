@@ -200,13 +200,13 @@ export default function Chats() {
               <div ref={endOfMessagesRef} />
             </div>
           </div>
-          <div className="h-[5%]"></div>
+          <div className="h-[1%] xl:h-[0.5%]"></div>
           <form
             onSubmit={sendMessages}
             className="fixed bottom-0 left-0 right-0 p-4 rounded-xl bg-white dark:bg-zinc-800"
             style={{ borderRadius: "16px", zIndex: 10 }}
           >
-            <div className="flex flex-row p-2 lg:p-4 items-center h-20 lg:h-32 rounded-xl w-full">
+            <div className="flex flex-row p-0 lg:p-4 items-center h-12 xl:h-20 rounded-xl w-full">
               <div
                 className="flex-1 flex flex-row justofy-center items-center rounded-lg h-full bg-white"
                 style={{ borderRadius: "16px" }}
@@ -230,14 +230,14 @@ export default function Chats() {
                   type="text"
                   value={messageToSend}
                   onChange={handleInputChange}
-                  className=" p-2 rounded-lg w-full h-full text-4xl outline-none"
+                  className=" p-2 rounded-lg w-full h-full text-3xl xl:text-3xl outline-none"
                   placeholder="Type a message..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="h-full  ml-2 p-4 bg-blue-600 text-white rounded-lg text-xl lg:text-4xl font-semibold"
+                className="h-full  ml-2 p-4 bg-blue-600 text-white text-center rounded-lg text-xl xl:text-3xl font-semibold"
                 style={{ borderRadius: "16px" }}
               >
                 Send

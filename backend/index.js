@@ -5,6 +5,7 @@ import cors from 'cors'
 import ChatsRoutes from "./Routes/Chats.routes.js"
 import { Server as SocketServer } from "socket.io";
 import http from 'http'
+import ChannelRoutes from "./Routes/Channels.routes.js"
 
 
 const app = express()
@@ -50,5 +51,6 @@ mongoose.connect("mongodb+srv://aabidhussainpas:7hEzoKNJh96atiwr@cluster0.icak94
         console.log(e)
     })
 
-app.use("/api/user", UserRoutes)
+app.use("/api/users", UserRoutes)
 app.use("/api/chats", ChatsRoutes)
+app.use("/api/channels",ChannelRoutes)
