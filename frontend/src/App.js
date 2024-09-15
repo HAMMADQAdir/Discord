@@ -11,11 +11,11 @@ function App() {
   return (
     <>
        <div className="bg-[url('./assets/background_home.avif')] bg-cover bg-opacity-25 backdrop-blur-sm w-full h-full">
-       {/* <Headers /> */}
+       <Headers />
        {/* <MyServer/> */}
-       {/* <Sidebar/> */}
-      
-        <SideNav/> 
+       <Sidebar/>
+      <Home/>
+        {/* <SideNav/>  */}
    {/* <AddingServer/> */}
        {/* <Footer /> */}
        </div>
