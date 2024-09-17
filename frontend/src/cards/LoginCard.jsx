@@ -3,6 +3,7 @@ import QR from "../assets/QR.png";
 import { useNavigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword,doSignInWithGoogle } from "../firebase/auth";
 import axios from "axios";
+import { getUserWithEmail } from "../API/UserApi";
 
 export default function LoginCard() {
   const navigate = useNavigate();
@@ -14,19 +15,11 @@ export default function LoginCard() {
       e.preventDefault();  // Prevents the default form submission behavior
       const userCredential = await doSignInWithEmailAndPassword(email,passowrd)
 
-      //get username
-      const URL = `http://127.0.0.1:5000/api/user/getUser/${email}`
-      
-      await axios
-        .get(URL)
-        .then((response) => {
-          console.log(response.data)
-          navigate(`/${response.data.username}/home`);
-           // Handle the response data
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error); // Handle errors
-        });
+      const response = await getUserWithEmail(email)
+      console.log(response.username)
+
+      navigate(`/${response.username}/landing`);
+     
 
      
     } catch (error) {

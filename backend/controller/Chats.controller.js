@@ -12,23 +12,25 @@ export const createChats =  async(req,res) =>{
 
 }
 
-export const  sendChats = async (req,res)=>{
+export const  sendChats = async (io,messages)=>{
     try {
-        const {id} = req.params
+        const { chatID, username, message } = messages;
+        console.log(message)
+        // Save the message to the chat in the database (similar to sendChats logic)
         const updatedChat = await Chats.findByIdAndUpdate(
-            id,
-            { $push: { messages: { username: req.body.username, message: req.body.message } } },
-            { new: true }  // Return the updated document
+            chatID,  // Assuming chatId is sent with the message
+            { $push: { messages: { username, message: message } } }, // Push the new message
+            { new: true }  // Return the updated chat
         );
+
         if(!updatedChat){
-            res.status(400).json({message:"Chats does not exist"})
+            console.log("Error finding chat")
+            return
         }
 
-        // Respond with the updated chat document
-        res.status(200).json(updatedChat);
+        
     } catch (error) {
-        console.log(error)
-        res.status(400).json({message:error.message})
+        console.error('Error saving message:', error);
     }
 }
 

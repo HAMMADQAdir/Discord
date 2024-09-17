@@ -200,6 +200,7 @@ export default function Chats() {
               <div ref={endOfMessagesRef} />
             </div>
           </div>
+          
           <div className="h-[1%] xl:h-[0.5%]"></div>
           <form
             onSubmit={sendMessages}

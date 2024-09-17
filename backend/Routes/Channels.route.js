@@ -8,8 +8,6 @@ const router = express.Router()
 router.post('/createServer/:userID',createServer)
 
 // get channel
-router.get('/getServer/:id',getServer)
-
 router.get('/getChannel/:id',getChannel)
 
 // join channel

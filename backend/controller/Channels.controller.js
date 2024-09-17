@@ -10,13 +10,18 @@ export const createChannel = async (user,channelName) => {
 
          // Create a new chat
         const chat = await Chats.create({});
-        console.log(chat)
+
+
+        chat.users = [user._id]
+        await chat.save()
 
         // Set the admin, mods, and members during creation
         channel.channelName = channelName
         channel.channelAdmin = user._id;  // Admin is the creator 
         channel.channelMembers = [user._id]; // Add the creator to members
         channel.channelChat={chatName:channelName,chat:chat}
+
+        
 
         // Save the channel
         await channel.save();

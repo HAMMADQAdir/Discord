@@ -6,6 +6,7 @@ import ChatsRoutes from "./Routes/Chats.routes.js"
 import { Server as SocketServer } from "socket.io";
 import http from 'http'
 import ServerRoutes from "./Routes/Servers.route.js"
+import { sendChats } from "./controller/Chats.controller.js";
 
 
 const app = express()
@@ -30,8 +31,16 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     // Handle receiving messages
-    socket.on('sendMessage', (message) => {
-        io.emit('receiveMessage', message); // Broadcast the message to all clients
+    socket.on('sendMessage',async (messages) => {
+        await  sendChats(io,messages)
+
+        // Broadcast the message to all connected clients
+        io.emit('receiveMessage', {
+            username:messages.username,
+            message: messages.message,
+        });
+
+        
     });
 
     socket.on('disconnect', () => {
@@ -52,5 +61,5 @@ mongoose.connect("mongodb+srv://aabidhussainpas:7hEzoKNJh96atiwr@cluster0.icak94
     })
 
 app.use("/api/users", UserRoutes)
-app.use("/api/chats", ChatsRoutes)
+app.use("/api/chats",ChatsRoutes)
 app.use("/api/servers",ServerRoutes)

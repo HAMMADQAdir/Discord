@@ -9,7 +9,7 @@ router.post('/createChats',createChats)
 // send chat
 router.post('/sendChats/:id',sendChats)
 // get Chats
-router.get('/getChats/:id',getChats)
+router.get('/getChat/:id',getChats)
 
 // get all Chats
 router.get('/getAllChats',getAllChats)

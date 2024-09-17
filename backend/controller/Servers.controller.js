@@ -3,9 +3,10 @@ import Server from "../models/Servers.model.js";
 import User from "../models/Users.model.js";
 import { createChannel } from "./Channels.controller.js";
 import crypto from 'crypto'
+import Chats from "../models/Chats.model.js";
 
 // Function to generate a unique joining code
-const generateJoiningCode =  () => {
+export const generateJoiningCode =  () => {
     let code;
 
     // Loop until a unique code is generated
@@ -30,8 +31,11 @@ export const createServer = async (req, res) => {
         // Create the server with the provided request body
         const server = new Server(req.body);
 
-        const channel = await createChannel(user,user.username)
-        console.log(channel)
+         // Create a new chat
+         const chat = await Chats.create({});
+
+         chat.users = [user._id]
+         await chat.save()
 
         const joiningCode = generateJoiningCode()
 
@@ -41,7 +45,7 @@ export const createServer = async (req, res) => {
         server.serverAdmin = user._id;  // Admin is the creator
         server.serverMods = [user._id]; // Add the creator to mods
         server.serverMembers = [user._id]; // Add the creator to members
-        server.serverChannels = [channel]
+        server.serverChannels = [{channelName:user.username,chat:chat._id}]
         
 
         // Save the server

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "../index.css";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import { createUserAndServer } from "../API/UserApi";
 import axios from "axios";
 
 export default function SignUpCard() {
   const navigate = useNavigate();
-  const URLFOESIGNUP = "http://127.0.0.1:5000/api/user/createUser";
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -52,18 +52,21 @@ export default function SignUpCard() {
         gender: "Male",
         DOB: `${day}/${month}/${year}`,
       };
-      // register use in firebase
+
+      // register user in firebase
       await doCreateUserWithEmailAndPassword(email, password);
       // Add user in mongodb data base
-      await axios.post(URLFOESIGNUP, data);
+      const response = await createUserAndServer(data);
+
+      console.log(response)
+      navigate("/login");
+
     } catch (error) {
-      setError(error.toString());
-      console.log(typeof(error))
+
       console.log(error);
       return;
     }
     // Navigate to home
-    return <Navigate to="/login" />;
   };
 
   return (
@@ -72,10 +75,13 @@ export default function SignUpCard() {
         <h1 className="lg:m-4 text-xl lg:text-5xl font-bold text-center font-sans">
           Create an account
         </h1>
+
+        {/*Sign up  Form  */}
         <form
           onSubmit={handleSignUpForm}
           className="m-2 lg:m-8 space-y-2 lg:space-y-4 "
         >
+          {/* Email */}
           <div>
             <label
               htmlFor="email"
@@ -93,6 +99,7 @@ export default function SignUpCard() {
             />
           </div>
 
+          {/* Display Name */}
           <div>
             <label
               htmlFor="displayName"

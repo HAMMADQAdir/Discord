@@ -6,15 +6,16 @@ const UserSchema = mongoose.Schema(
     {
         email: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         username: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         displayName: {
             type: String,
-            required: true
 
         },
         gender: {
@@ -25,16 +26,14 @@ const UserSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        servers: {
+        servers:[{
             type: Schema.Types.ObjectId, // Assuming this is referencing the Server model by its ObjectId
-            ref: 'Server',                // Referencing the 'Server' model
-            required: true               // Ensures the field is mandatory
-        },
-        friends: {
+            ref: 'Server', 
+        }],
+        friends: [{
             type: Schema.Types.ObjectId, // Assuming this is referencing the Users model by its ObjectId
-            ref: 'Users',                // Referencing the 'Users' model
-            required: true               // Ensures the field is mandatory
-        }
+            ref: 'Users', 
+        }]
 
 
     },

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const ServerScema = new Schema({
-    serverName : { type: String, required: true },
+    serverName : { type: String },
     serverIcon:{ type: Buffer },
     serverJoiningCode: { type: String },
     serverAdmin: {
@@ -24,8 +24,17 @@ const ServerScema = new Schema({
     ],
     serverChannels:[
         {
-            type:Schema.Types.ObjectId,
-            ref:'Channels'
+            channelName: { type: String, required: true },
+            
+            channelChat:
+            {
+                chatName: String,
+                chat: {
+                    type: Schema.Types.ObjectId, // Assuming this is referencing the Users model by its ObjectId
+                    ref: 'Users',                // Referencing the 'Users' model
+                    required: true               // Ensures the field is mandatory
+                }
+            },
         }
     ]
 }
