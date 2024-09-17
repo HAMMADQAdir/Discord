@@ -15,11 +15,22 @@ export const createServer = async(serverData)=>{
 
 export const getServer = async(serverID)=>{
     try {
+        console.log(serverID)
         console.log(`${USER_API}/getUser/${serverID}`)
         const response = await axios.get(`${USER_API}/getServer/${serverID}`);
         return response.data;
     } catch (error) {
-        console.error("Error getting user:", error);
+        console.error("Error getting server:", error);
         throw error;
+    }
+}
+
+export const joinServerUsingCode = async (username,joiningCode)=>{
+    try {
+        console.log(username)
+        const response = await axios.post(`${USER_API}/joinServer/${username}/${joiningCode}`);
+        return response.data
+    } catch (error) {
+        console.log(error)
     }
 }

@@ -13,7 +13,7 @@ router.get('/getServer/:id',getServer)
 router.get('/getChannel/:id',getChannel)
 
 // join channel
-router.post('/joinServer/:userID/:joiningCode',joinServerUsingCode)
+router.post('/joinServer/:username/:joiningCode',joinServerUsingCode)
 
 // initiate chat group
 router.post('/initiateChannel/:serverID/:userID/:channelName',initiateChannel)

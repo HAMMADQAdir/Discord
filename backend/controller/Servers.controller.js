@@ -81,7 +81,16 @@ export const getServer = async (req,res)=>{
 
 export const joinServerUsingCode = async (req, res) => {
     try {
-        const { joiningCode, userID } = req.params; // Combined destructuring
+    
+        const { username,joiningCode } = req.params; // Combined destructuring
+        console.log(req.params)
+        
+
+        const user = await User.findOne({username:username})
+        if (!user) {
+            return res.status(400).json({ message: "User not found." });
+        }
+
         const server = await Server.findOne({ serverJoiningCode: joiningCode });
 
         // Check if the channel exists
@@ -91,8 +100,15 @@ export const joinServerUsingCode = async (req, res) => {
 
         
         // Add the user to the server members list if they're not already added
-        if (!server.serverMembers.includes(userID)) {
-            await server.updateOne({ $push: { serverMembers: userID } }); // Push the user ID to serverMembers
+        if (!server.serverMembers.includes(user._id)) {
+            await server.updateOne({ $push: { serverMembers: user._id } }); // Push the user ID to serverMembers
+        } else {
+            return res.status(400).json({ message: "User is already a member of this server." });
+        }
+
+        // Add refrence to the user 
+        if (!user.servers.includes(server._id)) {
+            await user.updateOne({ $push: { servers: server._id } }); // Push the user ID to serverMembers
         } else {
             return res.status(400).json({ message: "User is already a member of this server." });
         }

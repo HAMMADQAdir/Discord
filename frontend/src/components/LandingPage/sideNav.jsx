@@ -7,28 +7,29 @@ import MyServer from "../MyServer";
 import { useParams } from "react-router";
 import { getUser } from "../../API/UserApi";
 import { getServer } from "../../API/ServerApi";
+import JionServer from "../JoinServer";
 
 const SideNav = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isMyServerOpen, setIsmyServerOpen] = useState(false);
   const [myServers, setMyservers] = useState([]);
-  const [activeServer,setActiveServer] = useState({})
+  const [activeServer, setActiveServer] = useState({});
+  const [showJoinServerCard,setShowJoinServerCard] = useState(false)
   const username = useParams();
 
-  const handleClick =async (index,serverID) => {
-    
+  const handleClick = async (index, serverID) => {
     try {
-      console.log(serverID)
-      
-      const server = await getServer(serverID)
-      setActiveServer(server)
+      console.log(serverID);
+
+      const server = await getServer(serverID);
+      setActiveServer(server);
       setActiveIndex(index);
       if (index == 1) setIsmyServerOpen(true);
       else setIsmyServerOpen(false);
-      console.log(server)
+      console.log(server);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -36,30 +37,35 @@ const SideNav = () => {
     // Define the async function inside useEffect
     const fetchUserServers = async () => {
       try {
-        console.log(username)
+        console.log(username);
         // Get user (assuming you have a getUser function)
         const user = await getUser(username.username);
-  
+
         if (!user) {
           throw new Error("Error getting User");
         }
-        
-        console.log(user)
+
+        console.log(user);
         // Set user servers to state if user exists
         setMyservers(user.servers);
-  
       } catch (error) {
         // Log the error, or handle it as needed (e.g., set an error state)
         console.error("Error fetching user servers:", error.message);
       }
     };
-  
+
     // Call the async function
     fetchUserServers();
   }, [username]); // Add 'username' as a dependency if it's used inside the effect
-  
+
+  // Flip the value of join server var
+  const handleJoinServerClick = ()=>{
+    setShowJoinServerCard(true)
+  }
 
   return (
+    <>
+    
     <div className="flex w-full h-full">
       <aside
         className="fixed top-0 left-0 h-full w-28 bg-orange-400"
@@ -84,36 +90,36 @@ const SideNav = () => {
           <div className="flex justify-center mb-6 lg:my-8 items-center">
             <hr className="border-[#2B2D31] border-2 rounded-full w-16 mr-2" />
           </div>
-          {myServers.map((serverID)=>{
+          {myServers.map((serverID) => {
             return (
               <div
-              className="flex items-center h-24"
-              onMouseEnter={() => setHoveredIndex(1)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => handleClick(1,serverID)}
-            >
-              <div
-                className={`w-2 h-16 p-0 transition-all duration-300 ease-in-out ${
-                  hoveredIndex === 1 && activeIndex !== 1
-                    ? "bg-white h-4 rounded-r-lg"
-                    : ""
-                } ${activeIndex === 1 ? "bg-white rounded-r-3xl" : ""}`}
-              ></div>
-              <img
-                alt="My server"
-                className=" text-white transition-transform duration-300 ease-in-out transform hover:scale-105 ml-3 bg-clip h-16 w-16 rounded-full hover:rounded-2xl"
-              />
-              {hoveredIndex == 1 && (
-                // my server
-                <div className="transition-transform duration-300 ease-in-out transform absolute felx justify-center ml-14 translate-y-[200px] hover:scale-105 items-center bg-[#000000] p-2 rounded-lg shadow-md left-12 -top-4 whitespace-nowrap z-30">
-                  <p className="text-xl inline-block text-[#c0c4d2] font-bold">
-                    Hammad's Server
-                  </p>
-                  <div className="absolute w-4 h-4 bg-[#000000] top-2 left-[-8px] transform rotate-45"></div>
-                </div>
-              )}
-            </div>
-            )
+                className="flex items-center h-24"
+                onMouseEnter={() => setHoveredIndex(1)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => handleClick(1, serverID)}
+              >
+                <div
+                  className={`w-2 h-16 p-0 transition-all duration-300 ease-in-out ${
+                    hoveredIndex === 1 && activeIndex !== 1
+                      ? "bg-white h-4 rounded-r-lg"
+                      : ""
+                  } ${activeIndex === 1 ? "bg-white rounded-r-3xl" : ""}`}
+                ></div>
+                <img
+                  alt="My server"
+                  className=" text-white transition-transform duration-300 ease-in-out transform hover:scale-105 ml-3 bg-clip h-16 w-16 rounded-full hover:rounded-2xl"
+                />
+                {hoveredIndex == 1 && (
+                  // my server
+                  <div className="transition-transform duration-300 ease-in-out transform absolute felx justify-center ml-14 translate-y-[200px] hover:scale-105 items-center bg-[#000000] p-2 rounded-lg shadow-md left-12 -top-4 whitespace-nowrap z-30">
+                    <p className="text-xl inline-block text-[#c0c4d2] font-bold">
+                      Hammad's Server
+                    </p>
+                    <div className="absolute w-4 h-4 bg-[#000000] top-2 left-[-8px] transform rotate-45"></div>
+                  </div>
+                )}
+              </div>
+            );
           })}
           <div
             className="flex items-center h-24"
@@ -145,7 +151,7 @@ const SideNav = () => {
           </div>
 
           <div
-            className="flex items-center h-24"
+            className="flex items-center h-24 justify-between"
             onMouseEnter={() => setHoveredIndex(3)}
             onMouseLeave={() => setHoveredIndex(null)}
             onClick={() => handleClick(3)}
@@ -157,11 +163,6 @@ const SideNav = () => {
                   : ""
               } ${activeIndex === 3 ? "bg-white rounded-r-3xl" : ""}`}
             ></div>
-            <img
-              src={profileIcon}
-              alt=""
-              className="transition-transform duration-300 ease-in-out transform hover:scale-105 ml-3 bg-clip h-16 w-16 rounded-full hover:rounded-2xl"
-            />
             {activeIndex !== 3 && hoveredIndex == 3 && (
               // discover Server
               <div className="transition-transform duration-300 ease-in-out transform absolute felx justify-center ml-14 translate-y-[400px] hover:scale-105 items-center bg-[#000000] p-2 rounded-lg shadow-md left-12 -top-4 whitespace-nowrap z-30">
@@ -171,13 +172,45 @@ const SideNav = () => {
                 <div className="absolute w-4 h-4 bg-[#000000] top-2 left-[-8px] transform rotate-45"></div>
               </div>
             )}
+            <div className="flex items-center text-green-500 rounded-full h-16 p-0 mr-4 w-16 justify-center hover:text-white bg-[#313338] hover:bg-green-600 hover:rounded-3xl " onClick={handleJoinServerClick}>
+              <p className="text-6xl  text-center mb-3 font-light ">+</p>
+            </div>
+            <div></div>
           </div>
         </nav>
       </aside>
       <div className="flex-grow ml-28">
-        {isMyServerOpen && <MyServer server={activeServer} username={username} />}
+      {showJoinServerCard && (
+        <div className="fixed  inset-0 flex items-center justify-center z-50">
+          <div className="transition-transform duration-500 ease-out transform -translate-x-full slide-in  p-6 rounded-lg shadow-lg">
+            <JionServer username={username.username}/>
+          </div>
+        </div>
+      )}
+       <style jsx>{`
+        .slide-in {
+          transform: translateX(-100%);
+          animation: slideIn 0.5s forwards;
+        }
+
+        @keyframes slideIn {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+      `}</style>
+        {isMyServerOpen && (
+          <MyServer server={activeServer} username={username} />
+        )}
       </div>
     </div>
+    {/* Sliding Component */}
+    
+    </>
+    
   );
 };
 

@@ -47,10 +47,10 @@ export const getUser = async (req,res)=>{
         const user = await User.findOne({username:username})
 
         if(!user){
-            res.status(400).json({message:"User not found"})
+           return res.status(400).json({message:"User not found"})
         }
 
-        res.status(200).json(user)
+        return res.json(user)
     } catch (error) {
         res.status(400).json({message:error.message})
     }
