@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import JoinServer from "./JoinServer";
+import AddServer from "../cards/AddServerCard";
 
 export default function Chats() {
  
   return (
-    <JoinServer/>
+    <div className="flex justify-center item-center height-[100vh]">
+
+      <AddServer/>
+    </div>
      
   );
 }

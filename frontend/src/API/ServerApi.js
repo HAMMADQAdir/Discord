@@ -4,7 +4,8 @@ const USER_API = 'http://127.0.0.1:5000/api/servers'
 
 export const createServer = async(serverData)=>{
     try {
-        const response = await axios.post(`${USER_API}/createServer`, serverData);
+        console.log(serverData)
+        const response = await axios.post(`${USER_API}/createServer/${serverData}`, serverData);
         return response.data;
     } catch (error) {
         console.error("Error creating user:", error);

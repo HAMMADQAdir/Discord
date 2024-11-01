@@ -5,7 +5,7 @@ import { getChannel } from '../controller/Channels.controller.js'
 const router = express.Router()
 
 // create channel
-router.post('/createServer/:userID',createServer)
+router.post('/createServer/:username',createServer)
 
 // get channel
 router.get('/getServer/:id',getServer)

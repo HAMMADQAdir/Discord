@@ -7,7 +7,7 @@ import MyServer from "../MyServer";
 import { useParams } from "react-router";
 import { getUser } from "../../API/UserApi";
 import { getServer } from "../../API/ServerApi";
-import JionServer from "../JoinServer";
+import AddServer from "../../cards/AddServerCard";
 
 const SideNav = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -91,6 +91,8 @@ const SideNav = () => {
             <hr className="border-[#2B2D31] border-2 rounded-full w-16 mr-2" />
           </div>
           {myServers.map((serverID) => {
+
+            
             return (
               <div
                 className="flex items-center h-24"
@@ -113,7 +115,8 @@ const SideNav = () => {
                   // my server
                   <div className="transition-transform duration-300 ease-in-out transform absolute felx justify-center ml-14 translate-y-[200px] hover:scale-105 items-center bg-[#000000] p-2 rounded-lg shadow-md left-12 -top-4 whitespace-nowrap z-30">
                     <p className="text-xl inline-block text-[#c0c4d2] font-bold">
-                      Hammad's Server
+                      hello
+                    {serverID}
                     </p>
                     <div className="absolute w-4 h-4 bg-[#000000] top-2 left-[-8px] transform rotate-45"></div>
                   </div>
@@ -172,7 +175,7 @@ const SideNav = () => {
                 <div className="absolute w-4 h-4 bg-[#000000] top-2 left-[-8px] transform rotate-45"></div>
               </div>
             )}
-            <div className="flex items-center text-green-500 rounded-full h-16 p-0 mr-4 w-16 justify-center hover:text-white bg-[#313338] hover:bg-green-600 hover:rounded-3xl " onClick={handleJoinServerClick}>
+            <div className="flex items-center text-green-500 rounded-full h-16 p-0 mr-4 w-16 justify-center hover:text-white bg-[#313338] hover:bg-green-600 hover:rounded-3xl cursor-pointer" onClick={handleJoinServerClick}>
               <p className="text-6xl  text-center mb-3 font-light ">+</p>
             </div>
             <div></div>
@@ -183,7 +186,7 @@ const SideNav = () => {
       {showJoinServerCard && (
         <div className="fixed  inset-0 flex items-center justify-center z-50">
           <div className="transition-transform duration-500 ease-out transform -translate-x-full slide-in  p-6 rounded-lg shadow-lg">
-            <JionServer username={username.username}/>
+            <AddServer username={username.username}/>
           </div>
         </div>
       )}

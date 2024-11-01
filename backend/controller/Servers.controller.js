@@ -20,10 +20,10 @@ export const generateJoiningCode =  () => {
 
 export const createServer = async (req, res) => {
     try {
-        const { userID } = req.params;
+        const { username } = req.params;
 
         // Check if the user exists
-        const user = await User.findById(userID);
+        const user = await User.findOne({"username":username});
         if (!user) {
             return res.status(404).json({ message: "User not found." });
         }
@@ -33,7 +33,6 @@ export const createServer = async (req, res) => {
 
          // Create a new chat
          const chat = await Chats.create({});
-
          chat.users = [user._id]
          await chat.save()
 
@@ -45,11 +44,16 @@ export const createServer = async (req, res) => {
         server.serverAdmin = user._id;  // Admin is the creator
         server.serverMods = [user._id]; // Add the creator to mods
         server.serverMembers = [user._id]; // Add the creator to members
-        server.serverChannels = [{channelName:user.username,chat:chat._id}]
+        server.serverChannels = [{channelName:user.username,channelChat:{chatName:user.username,chat:chat._id}}]
         
 
         // Save the server
         await server.save();
+
+        // add server to user
+        await User.updateOne({ username: user.username }, { $push: { servers: server._id } });
+        console.log(joiningCode)
+
 
         // Respond with the created server
         return res.status(201).json(server);
