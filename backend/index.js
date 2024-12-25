@@ -48,6 +48,8 @@ io.on('connection', (socket) => {
     });
 });
 
+
+// mongodb+srv://aabidhussainpas:<db_password>@cluster0.icak94w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 mongoose.connect("mongodb+srv://aabidhussainpas:7hEzoKNJh96atiwr@cluster0.icak94w.mongodb.net/")
     .then(() => {
         console.log("connected")

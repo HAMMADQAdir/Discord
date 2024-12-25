@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import AddServer from "../cards/AddServerCard";
+import InviteFriendToServer from "../cards/InviteFriendToServer";
 
 export default function Chats() {
  
   return (
-    <div className="flex justify-center item-center height-[100vh]">
 
-      <AddServer/>
+    <div className="m-[100px]">
+
+      <InviteFriendToServer/>
     </div>
+    
      
   );
 }

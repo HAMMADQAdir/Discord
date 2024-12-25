@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import io from "socket.io-client";
 import { getChat } from "../API/ChatApi";
+import UserServerDropdownContent from "../cards/UserServerDropdown";
 
 
 const socket = io("http://localhost:5000");
@@ -49,12 +50,13 @@ const MyServer = ({server,username}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(server.serverChannels[0].channelChat.chat)
+        console.log("server",server.serverJoiningCode)
         const chatID = server.serverChannels[0].channelChat.chat
         
         const response = await getChat(chatID);
         setMessages(response.messages);
       } catch (error) {
+        console.log(server)
         console.error("Error fetching data:", error);
       }
     };
@@ -135,6 +137,7 @@ const MyServer = ({server,username}) => {
   const handleEmojiMouseLeave = () => {};
 
   const toggleDropdown = () => {
+
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -152,10 +155,12 @@ const MyServer = ({server,username}) => {
             onClick={toggleDropdown}
             className="flex items-center justify-between w-full py-2 px-3 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"
           >
-            <span className="font-bold h-10 font-">{server.serverName}</span>
+            <span className="font-bold h-10 font-bold">{server.serverName}</span>
             {dropdownOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </button>
-          {dropdownOpen && dropDown(server)}
+          {/* {dropdownOpen && dropDown(server)} */}
+          {dropdownOpen?<UserServerDropdownContent serverJoiningCode={server.serverJoiningCode}/>:null}
+          {/* <userServerDropdown/> */}
         </div>
       </div>
 

@@ -18,6 +18,32 @@ const SideNav = () => {
   const [showJoinServerCard,setShowJoinServerCard] = useState(false)
   const username = useParams();
 
+  useEffect(() => {
+    // Define the async function inside useEffect
+    const fetchUserServers = async () => {
+      try {
+        console.log(username);
+        // Get user (assuming you have a getUser function)
+        const user = await getUser(username.username);
+
+        if (!user) {
+          throw new Error("Error getting User");
+        }
+        console.log("user",user);
+        // Set user servers to state if user exists
+        setMyservers(user.servers);
+      } catch (error) {
+        // Log the error, or handle it as needed (e.g., set an error state)
+        console.error("Error fetching user servers:", error.message);
+      }
+    };
+
+    // Call the async function
+    fetchUserServers();
+  }, [username]); // Add 'username' as a dependency if it's used inside the effect
+
+
+  // Function to handle click on server
   const handleClick = async (index, serverID) => {
     try {
       console.log(serverID);
@@ -33,30 +59,10 @@ const SideNav = () => {
     }
   };
 
-  useEffect(() => {
-    // Define the async function inside useEffect
-    const fetchUserServers = async () => {
-      try {
-        console.log(username);
-        // Get user (assuming you have a getUser function)
-        const user = await getUser(username.username);
-
-        if (!user) {
-          throw new Error("Error getting User");
-        }
-
-        console.log(user);
-        // Set user servers to state if user exists
-        setMyservers(user.servers);
-      } catch (error) {
-        // Log the error, or handle it as needed (e.g., set an error state)
-        console.error("Error fetching user servers:", error.message);
-      }
-    };
-
-    // Call the async function
-    fetchUserServers();
-  }, [username]); // Add 'username' as a dependency if it's used inside the effect
+  // Callback function to handle data from child
+  const handleCloseButtonRequestFromCreateServerForm = (childData) => {
+    setShowJoinServerCard(childData);
+  };
 
   // Flip the value of join server var
   const handleJoinServerClick = ()=>{
@@ -137,11 +143,15 @@ const SideNav = () => {
                   : ""
               } ${activeIndex === 2 ? "bg-white rounded-r-3xl" : ""}`}
             ></div>
+
+            {/* Profile for server */}
             <img
               src={profileIcon}
               alt=""
               className="transition-transform duration-300 ease-in-out transform hover:scale-105 ml-3 bg-clip h-16 w-16 rounded-full hover:rounded-2xl"
             />
+
+            {/* Add a server */}
             {activeIndex !== 2 && hoveredIndex == 2 && (
               // addin a server
               <div className="transition-transform duration-300 ease-in-out transform absolute felx justify-center ml-14 translate-y-[300px] hover:scale-105 items-center bg-[#000000] p-2 rounded-lg shadow-md left-12 -top-4 whitespace-nowrap z-30">
@@ -182,11 +192,15 @@ const SideNav = () => {
           </div>
         </nav>
       </aside>
+
+      {/* Join server card appear after clicking join server button  */}
       <div className="flex-grow ml-28">
+
       {showJoinServerCard && (
         <div className="fixed  inset-0 flex items-center justify-center z-50">
           <div className="transition-transform duration-500 ease-out transform -translate-x-full slide-in  p-6 rounded-lg shadow-lg">
-            <AddServer username={username.username}/>
+            <AddServer sendCloseRequest = {handleCloseButtonRequestFromCreateServerForm} 
+            username={username.username}/>
           </div>
         </div>
       )}

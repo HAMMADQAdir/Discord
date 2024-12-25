@@ -8,6 +8,7 @@ export const createChannel = async (user,channelName) => {
         // Create the channel with the provided request body
         const channel = new Channels();
 
+    
          // Create a new chat
         const chat = await Chats.create({});
 

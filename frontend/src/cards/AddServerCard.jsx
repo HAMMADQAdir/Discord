@@ -11,7 +11,7 @@ import { joinServerUsingCode } from "../API/ServerApi";
 import icon from "../assets/icons8-discord-1500.png";
 import { createServer } from "../API/ServerApi";
 
-export default function AddServer({ username }) {
+export default function AddServer({sendCloseRequest, username }) {
   const [inviteLink, setInviteLink] = useState(false);
   const [iscreateServer, setIsCreateServer] = useState(false);
   const [serverName, setServerName] = useState("");
@@ -19,23 +19,27 @@ export default function AddServer({ username }) {
   const [joiningCode, setJoiningCode] = useState("");
   const [passowrd, setPassword] = useState("");
 
+  // Join sefver using invite link
   const handleJoiningServer = async (e) => {
     try {
       e.preventDefault()
       const response = await joinServerUsingCode(username, joiningCode);
       console.log(response);
+      window.location.reload();
     } catch (error) {
       console.log(error);
       return;
     }
   };
 
+  // Create server
   const handleCreateServer = async (e) => {
     try {
       e.preventDefault()
       const serverData = {"username":username, "serverName":serverName}
       const response = await createServer(username);
       console.log(response);
+      window.location.reload();
     } catch (error) {
       console.log(error);
       return;
@@ -49,6 +53,12 @@ export default function AddServer({ username }) {
     });
   };
 
+
+  const sendCloseRequestToSidenav = () => {
+    // Send data to parent via the callback
+    sendCloseRequest(false);
+  };
+
   return (
     <>
       <div className="  flex justify-center items-center">
@@ -57,6 +67,8 @@ export default function AddServer({ username }) {
             <div className="flex w-full justify-center flex-col  text-white text-center space-y-2">
               <div className="m-2 flex flex-row justify-between ">
                 <div></div>
+
+                {/* Create Your Server Headings */}
                 <div className="flex flex-col ">
                   <h1 className="text-3xl  p-1 font-bold">
                     Create Your Server!
@@ -65,7 +77,7 @@ export default function AddServer({ username }) {
                     Your server is where you and your freinds hang out.
                   </h2>
                 </div>
-                <button className=" m-2 top-2 right-2 text-gray-600 hover:text-gray-900">
+                <button className=" m-2 top-2 right-2 text-gray-600 hover:text-gray-900" onClick={sendCloseRequestToSidenav}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
